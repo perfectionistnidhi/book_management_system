@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrape Books</title>
+    <link rel="stylesheet" href="{% static 'book/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Scrape Books</h1>
+    </header>
+
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            <label for="category">Select Category:</label>
+            <select name="category" id="category">
+                <option value="">--Select Category--</option>
+                {% for genre in genres %}
+                    <option value="{{ genre.name }}">{{ genre.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Scrape books</button>
+        </form>
+    </div>
+</body>
+</html>

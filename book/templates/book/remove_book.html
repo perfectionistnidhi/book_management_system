@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Book</title>
+    <link rel="stylesheet" href="{% static 'book/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Are you sure you want to delete this book?</h1>
+    </header>
+
+    <div class="container">
+        
+        <!-- Display Messages Once -->
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}" id="message-{{ forloop.counter }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <!-- Display Book Information -->
+        <div class="book-info">
+            <h3>{{ book.title }}</h3>
+            <p><strong>Genre:</strong> {{ book.genre.name }}</p>
+            <p><strong>Description:</strong> {{ book.description }}</p>
+            <p><strong>Price:</strong> £{{ book.price }}</p>
+            
+            {% if book.image %}
+                <div class="book-image">
+                    <label>Book Image:</label>
+                    <img src="{{ book.image.url }}" alt="Book Image" class="book-image-preview" style="max-width: 300px; max-height: 300px;">
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Delete Book Form -->
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url 'manage_books' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+
+        <div class="links">
+            <a href="{% url 'manage_books' %}">Back to Manage Books</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Book Store. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

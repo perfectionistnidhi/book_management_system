@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Books</title>
+    <link rel="stylesheet" href="{% static 'book/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Manage Books</h1>
+    </header>
+
+    <div class="container">
+        <!-- Display Success Message -->
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- List of Books -->
+        <ul class="book-list">
+            {% for book in books %}
+                <li>
+                    <div class="book-title">{{ book.title }} - £{{ book.price }}</div>
+                    <div class="book-info">Genre: {{ book.genre.name }}</div>
+
+                    <!-- Display Book Image if Available -->
+                    {% if book.image %}
+                        <div class="book-image">
+                            <img src="{{ book.image.url }}" alt="{{ book.title }}" style="max-width: 100px; max-height: 150px;">
+                        </div>
+                    {% else %}
+                        <div class="no-image">No image available</div>
+                    {% endif %}
+
+                    <div class="links">
+                        <a href="{% url 'update_book' book_id=book.id %}">Edit</a> |
+                        <a href="{% url 'remove_book' book_id=book.id %}">Delete</a>
+                    </div>
+                </li>
+            {% empty %}
+                <p>No books available.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>

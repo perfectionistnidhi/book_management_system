@@ -1,0 +1,134 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        /* General body and page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;  /* Light pastel background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+        }
+
+        /* Styling for the login container */
+        .login-container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;  /* Maximum width for the login form */
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #e1acac;  /* Pastel pink */
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 5px;
+            text-align: left;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #f0f0f0;  /* Light gray */
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #e1acac;  /* Pastel pink border when focused */
+            background-color: #fff;
+        }
+
+        button {
+            width: 100%;
+            background-color: #e1acac;  /* Pastel pink */
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        button:hover {
+            background-color: #c79a99;  /* Slightly darker pastel pink */
+        }
+
+        /* Styling for the form and inputs */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        button:active {
+            background-color: #c79a99; /* Active button effect */
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            height: 40px;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        /* Responsive Design: Adjustments for smaller screens */
+        @media screen and (max-width: 768px) {
+            .login-container {
+                padding: 20px 30px;
+                max-width: 90%; /* Allow the form to take more space on smaller screens */
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            input, button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Login</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required placeholder="Enter your username">
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required placeholder="Enter your password">
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+</body>
+</html>

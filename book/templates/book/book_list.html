@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <link rel="stylesheet" href="{% static 'book/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Books List</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- Display Messages Once -->
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}" id="message-{{ forloop.counter }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Filter by Category Form -->
+        <form method="GET">
+            <label for="category">Filter by Category:</label>
+            <select name="category" id="category">
+                <option value="">ALL</option>
+                {% for genre in categories %}
+                    <option value="{{ genre.name }}" {% if request.GET.category == genre.name %}selected{% endif %}>
+                        {{ genre.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+
+        <!-- Books List -->
+        {% if books %}
+            <ul class="book-list">
+                {% for book in books %}
+                    <li>
+                        <div class="book-title">{{ book.title }} - £{{ book.price }}</div>
+                        {% if book.genre %}
+                            <div class="book-info">Genre: {{ book.genre.name }}</div>
+                        {% endif %}
+
+                        {% if book.image %}
+                            <div class="book-image">
+                                <img src="{{ book.image.url }}" alt="{{ book.title }}" width="100">
+                            </div>
+                        {% endif %}
+
+                        <div class="links">
+                            <a href="{% url 'update_book' book_id=book.id %}">Edit</a> |
+                            <a href="{% url 'remove_book' book_id=book.id %}">Delete</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No books available.</p>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Book Store. All rights reserved.</p>
+    </div>
+
+    <script>
+        // Hide the alert after 3 seconds once it's displayed
+        window.addEventListener('load', function () {
+            const alertMessage = document.querySelector('.alert');
+            if (alertMessage) {
+                setTimeout(function() {
+                    alertMessage.style.opacity = '0';  // Fade out the alert
+                    setTimeout(function() {
+                        alertMessage.style.display = 'none';  // Completely hide the alert after fade-out
+                    }, 1000);  // Delay hiding until the fade-out transition is complete
+                }, 3000);  // Wait for 3 seconds before starting to fade out
+            }
+        });
+    </script>
+</body>
+</html>

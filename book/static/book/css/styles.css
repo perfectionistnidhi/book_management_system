@@ -1,0 +1,87 @@
+/* General body and page styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;  /* Light pastel background */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #e1acac;  /* Pastel pink */
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.container {
+    width: 85%;
+    margin: 30px auto;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* Styling for book information */
+.book-info {
+    margin-bottom: 20px;
+}
+
+.book-info p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.book-image img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Styling for buttons */
+button {
+    background-color: #e1acac;  /* Pastel pink */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #c79a99;  /* Slightly darker pastel pink */
+}
+
+/* Cancel button styling (same color as delete button) */
+.btn-secondary {
+    background-color: #e1acac;  /* Same pastel pink as delete button */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 15px; /* Adds space between buttons */
+}
+
+.btn-secondary:hover {
+    background-color: #c79a99;  /* Slightly darker pastel pink */
+}
+
+/* Styling for Edit and Delete Links */
+.links a {
+    color: #e1acac;  /* Same pastel pink as header */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.links a:hover {
+    text-decoration: underline;
+    color: #c79a99;  /* Slightly darker shade of pastel pink on hover */
+}

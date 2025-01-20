@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Book</title>
+    <link rel="stylesheet" href="{% static 'book/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Update Book: {{ book.title }}</h1>
+    </header>
+
+    <div class="container">
+
+        <!-- Display Messages Once -->
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}" id="message-{{ forloop.counter }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Display Image -->
+        {% if book.image %}
+            <div class="book-image">
+                <label>Current Book Image:</label>
+                <img src="{{ book.image.url }}" alt="Book Image" class="book-image-preview" style="max-width: 300px; max-height: 300px;">
+            </div>
+        {% endif %}
+
+        <!-- Update Book Form -->
+        <form method="POST" enctype="multipart/form-data"> <!-- Added enctype for file uploads -->
+            {% csrf_token %}
+
+            <label for="genre">Genre:</label>
+            <select name="genre" id="genre" required>
+                {% for genre in genres %}
+                    <option value="{{ genre.id }}" {% if book.genre.id == genre.id %}selected{% endif %}>{{ genre.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="title">Book Title:</label>
+            <input type="text" name="title" id="title" value="{{ book.title }}" required>
+
+            <label for="price">Price:</label>
+            <input type="number" name="price" id="price" value="{{ book.price }}" required step="0.01">
+
+            <label for="description">Description:</label>
+            <textarea name="description" id="description" required>{{ book.description }}</textarea>
+
+            <label for="image">Upload New Image:</label>
+            <input type="file" name="image" id="image">
+
+            <button type="submit">Update Book</button>
+        </form>
+
+        <div class="links">
+            <a href="{% url 'manage_books' %}">Back to Manage Books</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Book Store. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
